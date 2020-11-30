@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    android:focusableInTouchMode="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Button
@@ -12,7 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
+        android:background="@color/aqua_marine"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:text="@string/addnewitemsbutton"
+        android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -22,7 +25,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
+        android:background="@color/aqua_marine"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:text="@string/generatemap"
+        android:textSize="15dp"
         app:layout_constraintBottom_toTopOf="@id/add_new_items_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -33,36 +40,42 @@
         android:layout_height="387dp"
         app:layout_constraintBottom_toTopOf="@+id/generatemap_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
+
+
         app:layout_constraintTop_toTopOf="parent"
-
-
-        />
+        app:layout_constraintVertical_bias="0.805" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
         android:layout_marginBottom="10dp"
+        android:fontFamily="@font/pacifico"
         android:text="Items"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/grocery_list_recyclerview"
         app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.86" />
+        app:layout_constraintVertical_bias="0.857" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/pacifico"
         android:text="Quantity"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/grocery_list_recyclerview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.857" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
