@@ -1,5 +1,6 @@
 package com.example.maptixdraft2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,20 +18,33 @@ public class AddActivity extends AppCompatActivity {
     Button add_button;
     String tag = "TAG";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(tag, "Log Create");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        Intent signin_intent = getIntent();
+        final String signin_username = signin_intent.getStringExtra("username");
+        Log.i("YX/add_intent", signin_username);
+        Log.i("KEWEN","CALLED");
+
         items_atv = findViewById(R.id.Itemname);
         quantity_atv = findViewById(R.id.quantity);
         add_button = findViewById(R.id.add_button);
 
+
+
         final Firebase.booleanCallbackInterface addItemCallback = new Firebase.booleanCallbackInterface() {
             @Override
             public void onCallback(boolean itemExists) {
+
+                Intent signin_intent = getIntent();
+                final String signin_username = signin_intent.getStringExtra("username");
+                Log.i("YX/add_intent", signin_username);
                 Log.i("KEWEN","CALLED");
+
                 if (itemExists) {
                     String itemEntered = items_atv.getText().toString(); //Get the values from the autotextfield
                     String qtyEntered = quantity_atv.getText().toString();
@@ -38,7 +52,7 @@ public class AddActivity extends AppCompatActivity {
                         qtyEntered = "-"; // if the user does not enter a quantity, we display a dash instead
                     }
                     ListItem newItemObject = new ListItem(itemEntered, qtyEntered); //create new constructor
-                    Firebase.addItem(newItemObject,"Kewen"); //use this method instead of push() for correct firebase format and to avoid auto adding UUID
+                    Firebase.addItem(newItemObject,signin_username); //use this method instead of push() for correct firebase format and to avoid auto adding UUID
                     Toast.makeText(AddActivity.this, "Item added successfully" , Toast.LENGTH_SHORT).show();
                     Log.i("KEWEN","EXISTS");
                 } else {
@@ -57,6 +71,8 @@ public class AddActivity extends AppCompatActivity {
                 } else {
                     Firebase.itemAvailability(addItemCallback,itemEntered);
                 }
+                items_atv.setText("");
+                quantity_atv.setText("");
             }
         });
 

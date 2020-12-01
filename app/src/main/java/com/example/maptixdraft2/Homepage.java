@@ -36,9 +36,14 @@ public class Homepage extends AppCompatActivity  {
         generate_map = findViewById(R.id.generatemap_button);
 
 
-            recyclerView = findViewById(R.id.grocery_list_recyclerview);
-            recyclerView.hasFixedSize();
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = findViewById(R.id.grocery_list_recyclerview);
+        recyclerView.hasFixedSize();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        Intent signin_intent = getIntent();
+        final String signin_username = signin_intent.getStringExtra("username");
+        Log.i("YX/signup_intent", signin_username);
+
 
 
 
@@ -69,13 +74,13 @@ public class Homepage extends AppCompatActivity  {
                             case ItemTouchHelper.LEFT:
 
                                 final String deleteditem = myList.get(position).getItems();
-                                final String deletedquantity = myList.get(position).getQuantity();
+                                //final String deletedquantity = myList.get(position).getQuantity();
                                 Log.i("Test for item", deleteditem );
                                 myList.remove(viewHolder.getAdapterPosition()); //get position of the user list
                                 tableAdapter.notifyDataSetChanged();
 
                                 Log.i("Kewen delete","LayoutPosition is "+ position);
-                                Firebase.deleteItem(deleteditem, "Kewen"); //delete item based on index
+                                Firebase.deleteItem(deleteditem, signin_username); //delete item based on index
                                 Snackbar.make(recyclerView, deleteditem + " deleted",Snackbar.LENGTH_LONG).show();
                                 //to undo the delete (implement if time permits
 //                                Snackbar.make(recyclerView, deleteditem ,Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
@@ -93,6 +98,7 @@ public class Homepage extends AppCompatActivity  {
                                     String editeditem = myList.get(position).getItems();
                                     Intent edit_intent = new Intent(Homepage.this, UpdateActivity.class);
                                     edit_intent.putExtra("unlock_edit",editeditem);
+                                    edit_intent.putExtra("username",signin_username);
                                     startActivity(edit_intent);
                                     break;
 
@@ -121,7 +127,7 @@ public class Homepage extends AppCompatActivity  {
             }
         };
 
-        Firebase.displayShoppingList(displayShoppingListCallback,"Kewen"); //to trigger recyclerView to display user's shopping list retrieved from firebase
+        Firebase.displayShoppingList(displayShoppingListCallback,signin_username); //to trigger recyclerView to display user's shopping list retrieved from firebase
 
         //to add new item
         add_new_item.setOnClickListener(new View.OnClickListener() {
@@ -129,11 +135,11 @@ public class Homepage extends AppCompatActivity  {
             public void onClick(View v) {
                 //bring user to new activity upon clicking the add_new_item
                 Intent intent = new Intent(Homepage.this, AddActivity.class);
+                intent.putExtra("username",signin_username);
                 startActivity(intent);
             }
         });
     }
-
 
 
 

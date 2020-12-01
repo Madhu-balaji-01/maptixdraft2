@@ -10,25 +10,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Homepage"
-            android:label="Homepage"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".AddActivity"
-            android:label="Add Grocery items"
-            android:parentActivityName=".Homepage"
-            android:screenOrientation="portrait"></activity>
         <activity android:name=".UpdateActivity"
             android:label="Update grocery item"
             android:parentActivityName=".Homepage"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".signInActivity"
-            android:parentActivityName=".signUpActivity"
+
+        <activity android:name=".AddActivity"
+            android:label="Add Grocery items"
+            android:parentActivityName=".Homepage"
             android:screenOrientation="portrait"></activity>
+
         <activity android:name=".signUpActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             ></activity>
+
+        <activity android:name=".signInActivity"
+            android:parentActivityName=".signUpActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".Homepage"
+            android:label="Homepage"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"></activity>
+
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -41,5 +46,6 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+
 
 </manifest>

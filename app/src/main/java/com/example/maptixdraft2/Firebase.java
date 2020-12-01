@@ -116,19 +116,98 @@ public class Firebase {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<ListItem> listItemList = new ArrayList<>();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    //define new object
-                    ListItem newItem = new ListItem();
-                    Log.i("Kewen shopping", snapshot.toString());
-                    String itemName = snapshot.getKey();
-                    String itemQty = snapshot.getValue().toString();
-                    newItem.setItems(itemName);
-                    newItem.setQuantity(itemQty);
-                    listItemList.add(newItem);
+                    if (!snapshot.getKey().equals("Password")) {
+                        //define new object
+                        ListItem newItem = new ListItem();
+                        Log.i("Kewen shopping", snapshot.toString());
+                        String itemName = snapshot.getKey();
+                        String itemQty = snapshot.getValue().toString();
+                        newItem.setItems(itemName);
+                        newItem.setQuantity(itemQty);
+                        listItemList.add(newItem);
+                    }
                 }
                 callbackAction.onCallback(listItemList);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public static void signIn(final stringCallbackInterface callbackAction, final String signinUser, final String signinPassword) {
+        DatabaseReference userDatabaseReference = myDatabaseRef.child("Users");
+        userDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean isUserFound = false;
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    String currentUser = snapshot.getKey();
+                    if (currentUser.equals(signinUser)) {
+                        isUserFound = true;
+                        String correctPassword = snapshot.child("Password").getValue().toString();
+                        Log.i("Kewen/signinpw", correctPassword);
+                        if (correctPassword.equals(signinPassword)) {
+                            // user exists, correct password
+                            // add callback to go to homepage activity
+                            callbackAction.onCallback("correct");
+                        } else {
+                            // user exists, wrong password
+                            // add callback to send Toast "Incorrect password!"
+                            callbackAction.onCallback("incorrect");
+                        }
+                        break;
+                    }
+                }
+                if (!isUserFound) {
+                    // user does not exist
+                    // add callback to send Toast "User does not exist!" prompt to sign up
+                    callbackAction.onCallback("signup");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public static void signUp(final booleanCallbackInterface callbackAction, final String signupUser, final String signupPassword) {
+        final DatabaseReference userDatabaseReference = myDatabaseRef.child("Users");
+
+
+        userDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean isUserFound = false;
+
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    String currentUser = snapshot.getKey();
+                    Log.i("Kewen/signup", currentUser );
+                    if (currentUser.equals(signupUser)) {
+
+                        Log.i("Kewen/signup","user found");
+                        isUserFound = true;
+                        // user exists
+                        // add callback to send Toast "User exists! Sign in instead?"
+                        callbackAction.onCallback(true);
+                        break;
+                    }
+                }
+                if (!isUserFound) {
+                    // user does not exist
+                    Log.i("Kewen/signup","user NOT found");
+                    myDatabaseRef.child("Users").child(signupUser).child("Password").setValue(signupPassword);// add a node for user
+                    // add callback to send Toast "User created!" and send to Homepage
+                    callbackAction.onCallback(false);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
@@ -142,6 +221,9 @@ public class Firebase {
     }
     interface booleanCallbackInterface {
         void onCallback(boolean bool);
+    }
+    interface stringCallbackInterface {
+        void onCallback(String string);
     }
 
 }
