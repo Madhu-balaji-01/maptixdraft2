@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //send intent over to the homepage class
-                Intent intent = new Intent(MainActivity.this, Homepage.class);
+                Intent intent = new Intent(MainActivity.this, signUpActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddActivity"
-    android:padding="30dp">
+    android:padding="30dp"
+    >
+
 
     <AutoCompleteTextView
         android:id="@+id/Itemname"

@@ -30,6 +30,7 @@ public class AddActivity extends AppCompatActivity {
         final Firebase.booleanCallbackInterface addItemCallback = new Firebase.booleanCallbackInterface() {
             @Override
             public void onCallback(boolean itemExists) {
+                Log.i("KEWEN","CALLED");
                 if (itemExists) {
                     String itemEntered = items_atv.getText().toString(); //Get the values from the autotextfield
                     String qtyEntered = quantity_atv.getText().toString();
@@ -39,8 +40,10 @@ public class AddActivity extends AppCompatActivity {
                     ListItem newItemObject = new ListItem(itemEntered, qtyEntered); //create new constructor
                     Firebase.addItem(newItemObject,"Kewen"); //use this method instead of push() for correct firebase format and to avoid auto adding UUID
                     Toast.makeText(AddActivity.this, "Item added successfully" , Toast.LENGTH_SHORT).show();
+                    Log.i("KEWEN","EXISTS");
                 } else {
                     Toast.makeText(AddActivity.this, "This item is not available at this supermarket!", Toast.LENGTH_LONG).show();
+                    Log.i("KEWEN","NOT EXISTS");
                 }
             }
         };
@@ -67,7 +70,7 @@ public class AddActivity extends AppCompatActivity {
             }
         };
         Firebase.displayItemSuggestions(itemsSuggestionsCallback); //to trigger items_atv to display suggested items retrieved from firebase
+
+
     }
 }
-
-

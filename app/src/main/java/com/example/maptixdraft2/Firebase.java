@@ -57,17 +57,24 @@ public class Firebase {
     }
 
     public static void itemAvailability(final booleanCallbackInterface callbackAction, final String itemName) {
-        DatabaseReference itemsDatabaseReference = myDatabaseRef.child("items");
-        itemsDatabaseReference.addValueEventListener(new ValueEventListener() {
+        Log.i("KEWEN","IN ITEM AVAILABILITY");
+        DatabaseReference itemsDatabaseReference = myDatabaseRef.child("Items");
+        itemsDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean isItemFound = false;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){ //iterate through the category list
                     String currentItem = snapshot.getKey();
+                    //Log.i("Kewen items",currentItem);
                     if (currentItem.equals(itemName)) {
                         callbackAction.onCallback(true);
+                        isItemFound = true;
                     }
                 }
-                callbackAction.onCallback(false);
+                if (!isItemFound) {
+                    callbackAction.onCallback(false);
+                }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
