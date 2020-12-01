@@ -142,8 +142,6 @@ public class Homepage extends AppCompatActivity  {
     }
 
 
-
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -152,6 +150,9 @@ public class Homepage extends AppCompatActivity  {
 
     @Override
     protected void onDestroy() {
+
         super.onDestroy();
+        Log.i("TAG", "Log destroyed");
+
     }
 }

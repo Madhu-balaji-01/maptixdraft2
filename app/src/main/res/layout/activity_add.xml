@@ -44,4 +44,5 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/quantity"
         tools:layout_editor_absoluteX="149dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

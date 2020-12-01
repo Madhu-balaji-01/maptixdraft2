@@ -11,28 +11,31 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".UpdateActivity"
-            android:label="Update grocery item"
+            android:label="Update Grocery item"
             android:parentActivityName=".Homepage"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".AddActivity"
+        <activity
+            android:name=".AddActivity"
             android:label="Add Grocery items"
             android:parentActivityName=".Homepage"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <activity android:name=".signUpActivity"
+            android:label="Sign Up"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
-            ></activity>
+            />
 
         <activity android:name=".signInActivity"
+            android:label="Sign In"
             android:parentActivityName=".signUpActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".Homepage"
             android:label="Homepage"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
 
         <activity android:name=".MainActivity">

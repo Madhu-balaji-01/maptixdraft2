@@ -30,8 +30,6 @@ public class signUpActivity extends AppCompatActivity {
         signin = findViewById(R.id.signinhere);
 
 
-
-
         final Firebase.booleanCallbackInterface signupCallback = new Firebase.booleanCallbackInterface() {
             @Override
             public void onCallback(boolean userExists) {

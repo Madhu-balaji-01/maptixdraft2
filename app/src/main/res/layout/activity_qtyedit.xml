@@ -34,7 +34,7 @@
 
     <Button
         android:id="@+id/update_button"
-
+        android:background="@color/turqoise_homepage"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="136dp"
