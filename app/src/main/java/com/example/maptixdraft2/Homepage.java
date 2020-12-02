@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,8 +15,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -76,31 +75,22 @@ public class Homepage extends AppCompatActivity  {
                                 final String deleteditem = myList.get(position).getItems();
                                 //final String deletedquantity = myList.get(position).getQuantity();
                                 Log.i("Test for item", deleteditem );
+                                Firebase.deleteItem(deleteditem, signin_username); //delete item based on index
                                 myList.remove(viewHolder.getAdapterPosition()); //get position of the user list
                                 tableAdapter.notifyDataSetChanged();
-
                                 Log.i("Kewen delete","LayoutPosition is "+ position);
-                                Firebase.deleteItem(deleteditem, signin_username); //delete item based on index
-                                Snackbar.make(recyclerView, deleteditem + " deleted",Snackbar.LENGTH_LONG).show();
-                                //to undo the delete (implement if time permits
-//                                Snackbar.make(recyclerView, deleteditem ,Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(View v) {
-//                                        Firebase.addItem(deleteditem,deleteditem,"Kewen");
-//                                        Log.i("FB","Add deleted item to FB");
-//                                        tableAdapter.notifyItemInserted(position);
-//                                    }
-//                                }).show();
-
+                                Toast.makeText(Homepage.this, "Item deleted!", Toast.LENGTH_LONG).show();
                                 break;
 
-                                case ItemTouchHelper.RIGHT:
-                                    String editeditem = myList.get(position).getItems();
-                                    Intent edit_intent = new Intent(Homepage.this, UpdateActivity.class);
-                                    edit_intent.putExtra("unlock_edit",editeditem);
-                                    edit_intent.putExtra("username",signin_username);
-                                    startActivity(edit_intent);
-                                    break;
+
+
+                            case ItemTouchHelper.RIGHT:
+                                String editeditem = myList.get(position).getItems();
+                                Intent edit_intent = new Intent(Homepage.this, UpdateActivity.class);
+                                edit_intent.putExtra("unlock_edit",editeditem);
+                                edit_intent.putExtra("username",signin_username);
+                                startActivity(edit_intent);
+
 
                         }
                     }

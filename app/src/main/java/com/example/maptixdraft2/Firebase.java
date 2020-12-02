@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Firebase {
@@ -92,7 +93,7 @@ public class Firebase {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){ //iterate through the category list
                     String currentItem = snapshot.getKey();
-                    if (!currentItem.equals("entrance")) {
+                    if (!currentItem.equals("IN")) {
                         itemsArraylist.add(currentItem);
                     }
                 }
@@ -212,6 +213,29 @@ public class Firebase {
             }
         });
     }
+    public void getAllItemCoordinates(final ptHashmapCallbackInterface callbackAction) {
+        DatabaseReference coordinatesDatabaseReference = myDatabaseRef.child("Coordinates");
+        coordinatesDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            HashMap<String,pt> allItemCoordinates = new HashMap<>();
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    String itemName = snapshot.getKey();
+                    float xCoordinate = (float) snapshot.child("x").getValue();
+                    float yCoordinate = (float) snapshot.child("y").getValue();
+                    pt itemPt = new pt(xCoordinate, yCoordinate);
+                    allItemCoordinates.put(itemName, itemPt);
+                }
+                callbackAction.onCallback(allItemCoordinates); // create this callback in jianhui's file
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
 
     interface callbackInterface { // equivalent of Bar, a nested interface
         void onCallback(String[] myList);
@@ -224,6 +248,16 @@ public class Firebase {
     }
     interface stringCallbackInterface {
         void onCallback(String string);
+    }
+    interface ptHashmapCallbackInterface {
+        void onCallback(HashMap<String,pt> allItemCoordinates);
+    }
+    public class pt {
+        float x, y;
+        pt(float x, float y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 
 }

@@ -31,8 +31,6 @@ public class signInActivity extends AppCompatActivity {
 
 
 
-
-
         final Firebase.stringCallbackInterface signinCallback = new Firebase.stringCallbackInterface() {
             @Override
             public void onCallback(String string) {
@@ -68,6 +66,7 @@ public class signInActivity extends AppCompatActivity {
                 String signinPassword = signInPassword.getText().toString();
                 Log.i("Kewen signin","signin triggered");
                 Firebase.signIn(signinCallback, signinUser,signinPassword );
+
             }
         });
 

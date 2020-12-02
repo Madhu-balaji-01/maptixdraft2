@@ -2,65 +2,45 @@ package com.example.maptixdraft2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class UpdateActivity extends AppCompatActivity {
 
     TextView itemtobeupdated;
     AutoCompleteTextView new_quantity;
     Button update_button;
-    private Object MenuItem;
-    private Object Menu;
-    private android.view.MenuItem item;
+    //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qtyedit);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-//        public boolean onOptionsItemSelected(MenuItem item){
-//            switch (item.getItemId()) {
-//                case android.R.id.home:
-//                    finish();
-//                    return true;
-//            }
-//            return super.onOptionsItemSelected(item);
-//        }
-//
-//        public boolean onCreateOptionsMenu(Menu menu) {
-//            return true;
-//        }
-
-
-
-
         Intent edit_intent = getIntent();
         String item_to_be_edited = edit_intent.getStringExtra("unlock_edit");
 
         Intent signin_intent = getIntent();
-       String signin_username = signin_intent.getStringExtra("username");
+        String signin_username = signin_intent.getStringExtra("username");
         Log.i("YX/update_intent", signin_username);
 
         itemtobeupdated = findViewById(R.id.update_Itemname);
         new_quantity = findViewById(R.id.new_quantity);
         update_button = findViewById(R.id.update_button);
+
+//        toolbar.setTitle("Update Page");
+//        setSupportActionBar(toolbar);
+//// Get a support ActionBar corresponding to this toolbar
+//        ActionBar ab = getSupportActionBar();
+//
 
         itemtobeupdated.setText(item_to_be_edited);
 
@@ -107,8 +87,8 @@ public class UpdateActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
 
     @Override
     protected void onPause() {

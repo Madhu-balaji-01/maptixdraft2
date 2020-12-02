@@ -12,16 +12,20 @@
 
         <activity android:name=".UpdateActivity"
             android:label="Update Grocery item"
-            android:parentActivityName=".Homepage"
-            android:screenOrientation="portrait"/>
+
+            android:screenOrientation="portrait"
+            />
+
 
         <activity
             android:name=".AddActivity"
             android:label="Add Grocery items"
-            android:parentActivityName=".Homepage"
-            android:screenOrientation="portrait" />
 
-        <activity android:name=".signUpActivity"
+            android:screenOrientation="portrait"
+            />
+
+        <activity
+            android:name=".signUpActivity"
             android:label="Sign Up"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
@@ -34,7 +38,6 @@
 
         <activity android:name=".Homepage"
             android:label="Homepage"
-            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"/>
 
 

@@ -25,10 +25,10 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        Intent signin_intent = getIntent();
-        final String signin_username = signin_intent.getStringExtra("username");
-        Log.i("YX/add_intent", signin_username);
-        Log.i("KEWEN","CALLED");
+//        Intent signin_intent = getIntent();
+//        final String signin_username = signin_intent.getStringExtra("username");
+//        Log.i("YX/add_intent", signin_username);
+//        Log.i("KEWEN","CALLED");
 
         items_atv = findViewById(R.id.Itemname);
         quantity_atv = findViewById(R.id.quantity);
@@ -55,6 +55,8 @@ public class AddActivity extends AppCompatActivity {
                     Firebase.addItem(newItemObject,signin_username); //use this method instead of push() for correct firebase format and to avoid auto adding UUID
                     Toast.makeText(AddActivity.this, "Item added successfully" , Toast.LENGTH_SHORT).show();
                     Log.i("KEWEN","EXISTS");
+                    items_atv.setText("");
+                    quantity_atv.setText("");
                 } else {
                     Toast.makeText(AddActivity.this, "This item is not available at this supermarket!", Toast.LENGTH_LONG).show();
                     Log.i("KEWEN","NOT EXISTS");
@@ -71,8 +73,7 @@ public class AddActivity extends AppCompatActivity {
                 } else {
                     Firebase.itemAvailability(addItemCallback,itemEntered);
                 }
-                items_atv.setText("");
-                quantity_atv.setText("");
+
             }
         });
 
@@ -87,6 +88,7 @@ public class AddActivity extends AppCompatActivity {
         };
         Firebase.displayItemSuggestions(itemsSuggestionsCallback); //to trigger items_atv to display suggested items retrieved from firebase
 
-
     }
 }
+
+
