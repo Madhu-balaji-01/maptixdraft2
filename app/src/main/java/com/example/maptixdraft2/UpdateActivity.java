@@ -81,8 +81,6 @@ public class UpdateActivity extends AppCompatActivity {
                 Intent edit_intent = getIntent();
                 String item_to_be_edited = edit_intent.getStringExtra("unlock_edit"); //Get the values from the autotextfield
                 Firebase.itemAvailability(addupdatedQuantityCallback,item_to_be_edited);
-//                Intent backtohomepage = new Intent(UpdateActivity.this, Homepage.class);
-//                startActivity(backtohomepage);
 
             }
         });

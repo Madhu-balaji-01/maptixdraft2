@@ -35,27 +35,32 @@ public class signInActivity extends AppCompatActivity {
             @Override
             public void onCallback(String string) {
 
-                switch (string) {
-                    case ("correct"):
-                        Log.i("Kewen signin","inside signin, correct password");
-                        Toast.makeText(signInActivity.this, "User login!", Toast.LENGTH_SHORT).show();
+                try {
+                    switch (string) {
+                        case ("correct"):
+                            Log.i("Kewen signin", "inside signin, correct password");
+                            Toast.makeText(signInActivity.this, "User login!", Toast.LENGTH_SHORT).show();
 
-                        String signinUser = signInUser.getText().toString();
-                        Intent clicksigninIntent = new Intent(signInActivity.this, Homepage.class);
-                        clicksigninIntent.putExtra("username", signinUser);
-                        startActivity(clicksigninIntent);
-                        break;
-                    case ("incorrect"):
-                        Log.i("Kewen signin","inside signin, wrong password");
-                        Toast.makeText(signInActivity.this, "Incorrect password!", Toast.LENGTH_LONG).show();
-                        break;
+                            String signinUser = signInUser.getText().toString();
+                            Intent clicksigninIntent = new Intent(signInActivity.this, Homepage.class);
+                            clicksigninIntent.putExtra("username", signinUser);
+                            startActivity(clicksigninIntent);
+                            break;
+                        case ("incorrect"):
+                            Log.i("Kewen signin", "inside signin, wrong password");
+                            Toast.makeText(signInActivity.this, "Incorrect password!", Toast.LENGTH_LONG).show();
+                            break;
 
-                    case ("signup"):
-                        Log.i("Kewen signin","inside signin, user no exist");
-                        Toast.makeText(signInActivity.this, "User does not exist!", Toast.LENGTH_LONG).show();
-                        break;
+                        case ("signup"):
+                            Log.i("Kewen signin", "inside signin, user no exist");
+                            Toast.makeText(signInActivity.this, "User does not exist!", Toast.LENGTH_LONG).show();
+                            break;
+                    }
+
+                } catch (NullPointerException e) {
+                    Log.i("Error","Null Pointer exception");
+
                 }
-
             }
         };
 

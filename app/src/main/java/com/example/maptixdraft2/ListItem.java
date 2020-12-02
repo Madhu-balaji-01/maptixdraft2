@@ -1,11 +1,9 @@
 package com.example.maptixdraft2;
 
-import android.widget.AutoCompleteTextView;
 
 public class ListItem {
 
     String items , quantity;
-
     public ListItem(){
 
     }

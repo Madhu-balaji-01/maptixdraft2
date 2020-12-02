@@ -41,7 +41,6 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
     }
 
 
-
     @Override
     public int getItemCount() {
         return user_HelperList.size() ;
