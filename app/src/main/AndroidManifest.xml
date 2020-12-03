@@ -12,24 +12,20 @@
 
         <activity android:name=".UpdateActivity"
             android:label="Update Grocery item"
-
-            android:screenOrientation="portrait"
-            />
-
+            android:parentActivityName=".Homepage"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".AddActivity"
             android:label="Add Grocery items"
-
-            android:screenOrientation="portrait"
-            />
+            android:parentActivityName=".Homepage"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".signUpActivity"
             android:label="Sign Up"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"
-            />
+            android:parentActivityName=".drawshortest"
+            android:screenOrientation="portrait" />
 
         <activity android:name=".signInActivity"
             android:label="Sign In"
@@ -40,8 +36,14 @@
             android:label="Homepage"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".drawshortest"
+            android:label="Shortest Path"
+            android:parentActivityName=".Homepage"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

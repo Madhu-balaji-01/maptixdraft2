@@ -1,6 +1,5 @@
 package com.example.maptixdraft2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -42,7 +41,6 @@ public class Homepage extends AppCompatActivity  {
         Intent signin_intent = getIntent();
         final String signin_username = signin_intent.getStringExtra("username");
         Log.i("YX/signup_intent", signin_username);
-
 
 
 
@@ -90,6 +88,7 @@ public class Homepage extends AppCompatActivity  {
                                 edit_intent.putExtra("unlock_edit",editeditem);
                                 edit_intent.putExtra("username",signin_username);
                                 startActivity(edit_intent);
+                                break;
 
 
                         }
@@ -129,8 +128,19 @@ public class Homepage extends AppCompatActivity  {
                 startActivity(intent);
             }
         });
-    }
 
+        generate_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //bring user to generate map
+                Intent genmap = new Intent(Homepage.this, drawshortest.class);
+                genmap.putExtra("username",signin_username);
+                startActivity(genmap);
+                startActivity(genmap);
+
+            }
+        });
+    }
 
     @Override
     protected void onPause() {

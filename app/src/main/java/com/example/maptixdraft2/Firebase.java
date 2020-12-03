@@ -237,6 +237,52 @@ public class Firebase {
 
     }
 
+    public static void getIncidenceMap(final dijkstraMapperCallbackInterface callbackAction, final String username) {
+        final HashMap<String, HashMap<String, Integer>> itemIncidenceMap = new HashMap<>();
+        final ArrayList<String> userShoppingList = new ArrayList<>();
+        final HashMap<String,pt> allItemCoordinates = new HashMap<>();
+        myDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                DataSnapshot itemsSnapshot = dataSnapshot.child("Items");
+                DataSnapshot userSnapshot = dataSnapshot.child("Users").child(username);
+                DataSnapshot coordinatesSnapshot = dataSnapshot.child("Coordinates");
+                for (DataSnapshot currentItemsnapshot: itemsSnapshot.getChildren()) {
+                    HashMap<String, Integer> currentItemMap = new HashMap<>();
+                    Log.i("Kewen mapper/incidence", currentItemsnapshot.toString());
+                    String itemName = currentItemsnapshot.getKey();
+                    for (DataSnapshot incidenceSnapshot: currentItemsnapshot.getChildren()) {
+                        currentItemMap.put(incidenceSnapshot.getKey(), (Integer) incidenceSnapshot.getValue());
+                    }
+                    Log.i("Kewen mapper/incidence","CurrentItemMap: "+currentItemMap);
+                    itemIncidenceMap.put(itemName,currentItemMap);
+                }
+                Log.i("Kewen mapper/incidence","Final itemIncidenceMap: "+itemIncidenceMap);
+                for (DataSnapshot snapshot: userSnapshot.getChildren()) {
+                    if (!snapshot.getKey().equals("Password")) {
+                        Log.i("Kewen dijkstra/shoplist", snapshot.toString());
+                        String itemName = snapshot.getKey();
+                        userShoppingList.add(itemName);
+                    }
+                }
+                for (DataSnapshot snapshot: coordinatesSnapshot.getChildren()) {
+                    Log.i("Kewen mapper/coords", snapshot.toString());
+                    String itemName = snapshot.getKey();
+                    float xCoordinate = (float) snapshot.child("x").getValue();
+                    float yCoordinate = (float) snapshot.child("y").getValue();
+                    pt itemPt = new pt(xCoordinate, yCoordinate);
+                    allItemCoordinates.put(itemName, itemPt);
+                }
+                callbackAction.onCallback(itemIncidenceMap, allItemCoordinates, userShoppingList); // create this callback in Matthew's file
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     interface callbackInterface { // equivalent of Bar, a nested interface
         void onCallback(String[] myList);
     }
@@ -252,12 +298,11 @@ public class Firebase {
     interface ptHashmapCallbackInterface {
         void onCallback(HashMap<String,pt> allItemCoordinates);
     }
-    public class pt {
-        float x, y;
-        pt(float x, float y) {
-            this.x = x;
-            this.y = y;
-        }
+
+    interface dijkstraMapperCallbackInterface { // give this to dijkstra if they pass coords to mapper
+        void onCallback(HashMap<String, HashMap<String, Integer>> itemIncidenceMap, HashMap<String,pt> allItemCoordinates, ArrayList<String> userShoppingList);
     }
+
+
 
 }

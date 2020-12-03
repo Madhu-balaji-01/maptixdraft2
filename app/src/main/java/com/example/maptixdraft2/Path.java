@@ -1,6 +1,9 @@
 package com.example.maptixdraft2;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,8 +13,12 @@ public class Path {
     private static List<Vertex> nodes;
     private static List<Edge> edges;
 
-    public static LinkedList<Vertex> testExecute(HashMap<String, HashMap<String, Integer>> testAdjacencyMap,
-                                   ArrayList<String> lookupItemArray) {
+//    public static void callThis(String username) {
+//        Firebase.getIncidenceMap(getFromFirebaseCallback,username);
+//    }
+
+    public static LinkedHashMap<String,pt> testExecute(HashMap<String, HashMap<String, Integer>> testAdjacencyMap, HashMap<String, pt> allItemCoordinates, ArrayList<String> lookupItemArray) { //LinkedList<Vertex>
+
 
         nodes = new ArrayList<Vertex>();
         edges = new ArrayList<Edge>();
@@ -37,14 +44,16 @@ public class Path {
         DijkstraAlgo dijkstra = new DijkstraAlgo(graph);
         LinkedList<Vertex> path = new LinkedList<>();
 
-        String source = lookupItemArray.get(0);
-        String dest = source;
+        String source = "IN";
+        Log.i("Path/Source", source);
+        String dest = "IN";
         path.add(nodes.get(locs.indexOf(source)));
+        Log.i("Path/Destination",dest);
+        Log.i("lookuparray", lookupItemArray.toString());
 
         // Find shortest path for each item in each location
         while (lookupItemArray.size() > 1) {
             int shortest_dist = Integer.MAX_VALUE;
-
             dijkstra.findPath(nodes.get(locs.indexOf(source)));
             lookupItemArray.remove(source);
 
@@ -63,11 +72,23 @@ public class Path {
             source = dest;
         }
 
-        for (Vertex vertex : path) {
-            System.out.println(vertex);
+//        for (Vertex vertex : path) {
+//            System.out.println(vertex);
+//        }
+
+
+        // putting of shortest path nodes into LHM
+        LinkedHashMap<String, pt> shortpath = new LinkedHashMap<>();
+
+        for (Vertex v : path) {
+            Log.i("shortpath", v.toString());
+            shortpath.put(v.getName(), allItemCoordinates.get(v.getName()));
+
         }
 
-        return path;
+        Log.i("shortpath", shortpath.toString());
+
+        return shortpath;
     }
 
     private static void addLane(String laneId, int sourceLocNo, int destLocNo,
@@ -75,4 +96,14 @@ public class Path {
         Edge lane = new Edge(laneId, nodes.get(sourceLocNo), nodes.get(destLocNo), duration);
         edges.add(lane);
     }
+
+//    final Firebase.dijkstraMapperCallbackInterface getFromFirebaseCallback = new Firebase.dijkstraMapperCallbackInterface() {
+//        @Override
+//        public void onCallback(HashMap<String, HashMap<String, Integer>> itemIncidenceMap, HashMap<String, pt> allItemCoordinates, ArrayList<String> userShoppingList) {
+//            LinkedHashMap<String, pt> orderedList = testExecute(itemIncidenceMap,allItemCoordinates,userShoppingList);
+//
+//
+//        }
+//    };
+
 }
