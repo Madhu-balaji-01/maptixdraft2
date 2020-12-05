@@ -45,11 +45,11 @@ public class Path {
         LinkedList<Vertex> path = new LinkedList<>();
 
         String source = "IN";
-        Log.i("Path/Source", source);
+        //Log.i("Path/Source", source);
         String dest = "IN";
         path.add(nodes.get(locs.indexOf(source)));
-        Log.i("Path/Destination",dest);
-        Log.i("lookuparray", lookupItemArray.toString());
+        //Log.i("Path/Destination",dest);
+        //Log.i("lookuparray", lookupItemArray.toString());
 
         // Find shortest path for each item in each location
         while (lookupItemArray.size() > 1) {
@@ -81,12 +81,12 @@ public class Path {
         LinkedHashMap<String, pt> shortpath = new LinkedHashMap<>();
 
         for (Vertex v : path) {
-            Log.i("shortpath", v.toString());
+            //Log.i("shortpath", v.toString());
             shortpath.put(v.getName(), allItemCoordinates.get(v.getName()));
 
         }
 
-        Log.i("shortpath", shortpath.toString());
+        //Log.i("shortpath", shortpath.toString());
 
         return shortpath;
     }

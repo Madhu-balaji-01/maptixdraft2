@@ -7,7 +7,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -39,14 +41,63 @@ public class ExampleUnitTest {
     }
 
 
-
     @Test
     public void Vertext() {
             Vertex newvertex = new Vertex("1", "Beauty");
             assertEquals("1",newvertex.getId());
-            assertEquals("Autotest",newvertex.getName());
+            assertEquals("Beauty",newvertex.getName());
 
     }
+
+    @Test
+    public void Dijkstra() {
+        HashMap<String, HashMap<String, Integer>> testIncidenceMap = new HashMap<>();
+        HashMap<String, pt> coordinates = new HashMap<>();
+
+        HashMap<String, Integer> entranceAdjList = new HashMap<>(); // entrance node only goes to choc and chips
+        entranceAdjList.put("choc",7);
+        entranceAdjList.put("chips",5);
+        testIncidenceMap.put("in", entranceAdjList); // in is the name of the node representing the entrance
+
+        HashMap<String, Integer> chocAdjList = new HashMap<>(); // choc node only goes to entrance, milk and chips
+        chocAdjList.put("in",7);
+        chocAdjList.put("chips",2);
+        chocAdjList.put("milk",4);
+        testIncidenceMap.put("choc", chocAdjList);
+
+        HashMap<String, Integer> chipAdjList = new HashMap<>(); // milk node only goes to choc
+        chipAdjList.put("in",5);
+        chipAdjList.put("choc", 2);
+        testIncidenceMap.put("chips", chipAdjList);
+
+        HashMap<String, Integer> milkAdjList = new HashMap<>(); // milk node only goes to choc
+        milkAdjList.put("choc",4);
+        testIncidenceMap.put("milk", milkAdjList);
+
+        ArrayList<String> lookupItemArray = new ArrayList<>();
+        lookupItemArray.add("in");
+        lookupItemArray.add("choc");
+        lookupItemArray.add("chips");
+        lookupItemArray.add("milk");
+
+        coordinates.put("in", new pt(4, 15));
+        coordinates.put("beauty", new pt(0,4));
+        coordinates.put("choc", new pt(0, 13));
+        coordinates.put("milk", new pt(12,14));
+        coordinates.put("juice", new pt(12,8));
+        coordinates.put("chips", new pt(5,0));
+
+        LinkedHashMap<String,pt> orderedPoints = new LinkedHashMap<>();
+        orderedPoints.put("in", new pt(4, 15));
+        orderedPoints.put("chips", new pt(5,0));
+        orderedPoints.put("choc", new pt(0, 13));
+        orderedPoints.put("milk", new pt(12,14));
+
+
+        assertEquals(orderedPoints,Path.testExecute(testIncidenceMap, coordinates, lookupItemArray));
+    }
+
+}
 
 
 
@@ -85,7 +136,7 @@ public class ExampleUnitTest {
 //        }
 
 
-    }
+
 
 //        public ListItem(){
 //
